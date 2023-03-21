@@ -1,0 +1,45 @@
+class TTime:
+    def __init__(self, a, b=None):
+        if b is None:
+            self.h, self.m = map(int, a.split(':'))
+        else:
+            self.h, self.m = a, b
+
+    def __repr__(self):
+        return f'{0 if self.h < 10 else ""}{self.h}:{0 if self.m < 10 else ""}{self.m}'
+
+    # нужно перезагрузить метод __add__
+    # если прибавляется число, то к текущему времени должно прибавить это количество минут, если прибавляется
+    # объект типа t-time, то прибавляется это количество часов и это количество минут
+    # нужно реализовать __iadd__, ещё нужно реализовать __sub__ и __isub__
+    def __add__(self, other):
+        u = self.h + other.h
+        s = self.m + other.m
+        u += s // 60
+        s = s % 60
+        return TTime(u, s)
+
+    def __iadd__(self, other):
+        u = self.h + other.h
+        s = self.m + other.m
+        u += s // 60
+        s = s % 60
+        self.h = u
+        self.m = s
+        return self
+
+    def __sub__(self, other):
+        u = self.h - other.h
+        s = self.m - other.m
+        u += s // 60
+        s = s % 60
+        return TTime(u, s)
+
+    def __isub__(self, other):
+        u = self.h - other.h
+        s = self.m - other.m
+        u += s // 60
+        s = s % 60
+        self.h = u
+        self.m = s
+        return self
