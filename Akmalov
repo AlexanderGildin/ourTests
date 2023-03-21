@@ -31,14 +31,14 @@ class TTime:
     def __sub__(self, other):
         u = self.h - other.h
         s = self.m - other.m
-        u += s // 60
+        u -= s // 60
         s = s % 60
         return TTime(u, s)
 
     def __isub__(self, other):
         u = self.h - other.h
         s = self.m - other.m
-        u += s // 60
+        u -= s // 60
         s = s % 60
         self.h = u
         self.m = s
