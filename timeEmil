@@ -7,13 +7,3 @@ class TTime:
 
     def __repr__(self):
         return f'{0 if self.h < 10 else ""}{self.h}:{0 if self.m < 10 else ""}{self.m}'
-
-    def __add__(self, other):
-        if isinstance(other, int):
-            self.m += other
-            self.h = (self.h + self.m // 60) % 24
-            self.m %= 60
-        elif isinstance(other, TTime):
-            self.m += other.m
-            self.h = (self.h + self.m // 60 + other.h) % 24
-            self.m %= 60
