@@ -7,3 +7,59 @@ class TTime:
 
     def __repr__(self):
         return f'{0 if self.h < 10 else ""}{self.h}:{0 if self.m < 10 else ""}{self.m}'
+
+    def __add__(self, other):
+        m = self.m
+        h = self.h
+        if isinstance(other, int):
+            m += other
+            h = (h + m // 60) % 24
+            m %= 60
+        elif isinstance(other, TTime):
+            m += other.m
+            h = (h + m // 60 + other.h) % 24
+            m %= 60
+        else:
+            raise TypeError
+        return TTime(h, m)
+
+    def __iadd__(self, other):
+        if isinstance(other, int):
+            self.m += other
+            self.h = (self.h + self.m // 60) % 24
+            self.m %= 60
+        elif isinstance(other, TTime):
+            self.m += other.m
+            self.h = (self.h + self.m // 60 + other.h) % 24
+            self.m %= 60
+        else:
+            raise TypeError
+        return self
+
+    def __sub__(self, other):
+        m = self.m
+        h = self.h
+        if isinstance(other, int):
+            h = (h - (m - other) // 60) % 24
+            m -= other
+            m %= 60
+        elif isinstance(other, TTime):
+            h = (h + (m - other.m) // 60 - other.h) % 24
+            m -= other.m
+            m %= 60
+        else:
+            raise TypeError
+        return TTime(h, m)
+
+    def __isub__(self, other):
+        if isinstance(other, int):
+            self.h = (self.h - (self.m - other) // 60) % 24
+            self.m -= other
+            self.m %= 60
+        elif isinstance(other, TTime):
+            self.h = (self.h + (self.m - other.m) // 60 - other.h) % 24
+            self.m -= other.m
+            self.m %= 60
+        else:
+            raise TypeError
+        return self
