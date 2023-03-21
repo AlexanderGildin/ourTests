@@ -9,13 +9,13 @@ class TTime:
         return f'{0 if self.h < 10 else ""}{self.h}:{0 if self.m < 10 else ""}{self.m}'
 
     def __add__(self, other):
-        h = self.h + other.h
-        m = self.m + other.m
+        h = (self.h + other.h) % 24
+        m = (self.m + other.m) // 60
         return TTime(m, h)
 
     def __iadd__(self, other):
-        h = self.h + other.h
-        m = self.m + other.m
+        h = (self.h + other.h) % 24
+        m = (self.m + other.m) // 60
         self.h = h
         self.m = m
         return self
@@ -24,8 +24,8 @@ class TTime:
         return TTime(self.h - other[0], self.m - other[1])
 
     def __isub__(self, other):
-        h = self.h - other.h
-        m = self.m - other.m
+        h = (self.h - other.h) % 24
+        m = (self.m - other.m) // 60
         self.h = h
         self.m = m
         return self
