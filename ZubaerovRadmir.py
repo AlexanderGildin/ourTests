@@ -2,11 +2,13 @@ class TTime:
     def __init__(self, a, b=None):
         if not b:
             tmp = a.split(':')
-            self.h = tmp[0]
-            self.m = tmp[1]
+            self.h = int(tmp[0])
+            self.m = int(tmp[1])
         else:
-            self.h = str(a)
-            self.m = str(b)
+            self.h = a
+            self.m = b
 
     def __repr__(self):
-        return self.h.rjust(2, '0') + ':' + self.m.rjust(2, '0')
+        h = str(self.h)
+        m = str(self.m)
+        return h.rjust(2, '0') + ':' + m.rjust(2, '0')
